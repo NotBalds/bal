@@ -9,7 +9,7 @@
 
 using namespace std;
 
-string OutFileName;
+string InFileName, OutFileName;
 
 
 int main(int argc, char** argv) {
@@ -51,6 +51,7 @@ int main(int argc, char** argv) {
 	argh::parser parser(argv);	
 	
 	parser({"-n", "--name"}, "out") >> OutFileName;
+	parser({"-f", "--file"}, "./main.cpp") >> InFileName;
 
 	string command;
 
@@ -58,7 +59,7 @@ int main(int argc, char** argv) {
 	{
 		cout << "[.] Building executable file..." << endl;;
 
-		command = "g++ -I./include/ ./src/main.cpp -o " + OutFileName;
+		command = "g++ -I./include/ " + InFileName + " -o " + OutFileName;
 		system(command.c_str());
 		
 		command = "chmod +x ./" + OutFileName;
@@ -89,7 +90,7 @@ int main(int argc, char** argv) {
 	{
 		if (parser.size() > 1)
 		{
-			cout << "[!] Incorrect call. Useful: bal <none|build|run|clear> [-n|--name=<name>]" << endl;
+			cout << "[!] Incorrect call. Useful: bal <none|build|run|clear> [-n|--name=<name>|-f|--file=<file_to_compile>]" << endl;
 		}
 		else  
 		{
