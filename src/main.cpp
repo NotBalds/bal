@@ -11,6 +11,43 @@ using namespace std;
 
 string InFileName, OutFileName;
 
+void build_command(string InFileName, string OutFileName) {
+	string command;
+
+	cout << "[.] Building executable file..." << endl;;
+
+	command = "g++ -I./include/ " + InFileName + " -o " + OutFileName;
+	system(command.c_str());
+		
+	command = "chmod +x ./" + OutFileName;
+	system(command.c_str());
+
+	cout << "[+] Executable file compiled suuccesfully!" << endl;
+
+}
+
+void run_command(string OutFileName) {
+	string command;
+
+	cout << "Running '" + OutFileName + "'..." << endl;
+	cout << "|---------- Start of the program ----------|" << endl;
+
+	command = "./" + OutFileName;
+	system(command.c_str());
+
+	cout << "|---------- End of the program ----------|" << endl;
+}
+
+void clear_command(string OutFileName) {
+	string command;
+
+	cout << "[.] Clearing space..." << endl;
+		
+	command = "rm -rf ./" + OutFileName;
+	system(command.c_str());
+
+	cout << "[+] Space cleaned!" << endl;
+}
 
 int main(int argc, char** argv) {
 	
@@ -57,34 +94,15 @@ int main(int argc, char** argv) {
 
 	if (parser[1] == build)
 	{
-		cout << "[.] Building executable file..." << endl;;
-
-		command = "g++ -I./include/ " + InFileName + " -o " + OutFileName;
-		system(command.c_str());
-		
-		command = "chmod +x ./" + OutFileName;
-		system(command.c_str());
-
-		cout << "[+] Executable file compiled suuccesfully!" << endl;
+		build_command(InFileName, OutFileName);
 	}
 	else if (parser[1] == run)
 	{
-		cout << "Running '" + OutFileName + "'..." << endl;
-		cout << "|---------- Start of the program ----------|" << endl;
-
-		command = "./" + OutFileName;
-		system(command.c_str());
-
-		cout << "|---------- End of the program ----------|" << endl;
+		run_command(InFileName);
 	}
 	else if (parser[1] == clear)
 	{
-		cout << "[.] Clearing space..." << endl;
-		
-		command = "rm -rf ./" + OutFileName;
-		system(command.c_str());
-
-		cout << "[+] Space cleaned!" << endl;
+		clear_command(InFileName);
 	}
 	else
 	{
@@ -94,35 +112,9 @@ int main(int argc, char** argv) {
 		}
 		else  
 		{
-			cout << "[.] Building executable file";
-			usleep(10000);
-			cout << ".";
-			usleep(10000);
-			cout << "." << endl;
-
-			command = "g++ -I./include/ ./src/main.cpp -o " + OutFileName;
-			system(command.c_str());
-
-			command = "chmod +x ./" + OutFileName;
-			system(command.c_str());
-
-			cout << "[+] Executable file compiled suuccesfully!" << endl;
-
-
-			cout << "Running '" + OutFileName + "'..." << endl;
-			cout << "|---------- Start of the program ----------|" << endl;
-
-			command = "./" + OutFileName;
-			system(command.c_str());
-
-			cout << "|---------- End of the program ----------|" << endl;
-		
-			cout << "[.] Clearing space..." << endl;
-		
-			command = "rm -rf ./" + OutFileName;
-			system(command.c_str());
-
-			cout << "[+] Space cleaned!" << endl;
+			build_command(InFileName, OutFileName);
+			run_command(OutFileName);
+			clear_command(OutFileName);
 		}
 	}
 
