@@ -15,7 +15,7 @@ void log(string object, int status) {
 }
 
 int build(string inputFilePath, string outputFilePath, string includeDirPath) {
-	string command = "g++ -o " + outputFilePath + " -I " + includeDirPath + " " + inputFilePath + " > /dev/null";
+	string command = "g++ -o " + outputFilePath + " -I " + includeDirPath + " " + inputFilePath + " &> /dev/null";
 	int status = system(command.c_str());
 	
 	log("Building", 2);
@@ -38,7 +38,7 @@ int run(string inputFilePath) {
 		inputFilePath = "./" + inputFilePath;
 	}
 
-	string command = "chmod +x " + inputFilePath + " > /dev/null";
+	string command = "chmod +x " + inputFilePath + " &> /dev/null";
 	int status = system(command.c_str());
 	
 	log("Giving permissions", 2);
@@ -72,7 +72,7 @@ int clean(string outputFilePath) {
 		outputFilePath = "./" + outputFilePath;
 	}
 	
-	string command = "rm " + outputFilePath + " > /dev/null";	
+	string command = "rm " + outputFilePath + " &> /dev/null";	
 	
 	log("Cleaning", 2);
 
